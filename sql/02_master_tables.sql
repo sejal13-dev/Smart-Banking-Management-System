@@ -103,3 +103,52 @@ CREATE TABLE Employees
         FOREIGN KEY(branch_id)
         REFERENCES Branches(branch_id)
 );
+/*=========================================================
+ TABLE: Roles
+ Description:
+ Stores all employee roles in the bank.
+=========================================================*/
+
+CREATE TABLE Roles
+(
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    role_name VARCHAR(50) NOT NULL UNIQUE,
+
+    role_description VARCHAR(255),
+
+    created_at TIMESTAMP
+        DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP
+        DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP
+);
+/*=========================================================
+ TABLE: Employee_Roles
+ Description:
+ Maps employees to one or more roles.
+=========================================================*/
+
+CREATE TABLE Employee_Roles
+(
+    employee_role_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    employee_id INT NOT NULL,
+
+    role_id INT NOT NULL,
+
+    assigned_date DATE
+        DEFAULT (CURRENT_DATE),
+
+    CONSTRAINT fk_emp_role_employee
+        FOREIGN KEY(employee_id)
+        REFERENCES Employees(employee_id),
+
+    CONSTRAINT fk_emp_role_role
+        FOREIGN KEY(role_id)
+        REFERENCES Roles(role_id),
+
+    CONSTRAINT uq_employee_role
+        UNIQUE(employee_id, role_id)
+);
