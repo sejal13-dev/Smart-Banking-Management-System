@@ -152,3 +152,124 @@ CREATE TABLE Employee_Roles
     CONSTRAINT uq_employee_role
         UNIQUE(employee_id, role_id)
 );
+/*=========================================================
+ TABLE: Customers
+ Description:
+ Stores customer personal information.
+=========================================================*/
+
+CREATE TABLE Customers
+(
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    customer_code VARCHAR(15) NOT NULL UNIQUE,
+
+    first_name VARCHAR(50) NOT NULL,
+
+    last_name VARCHAR(50) NOT NULL,
+
+    gender ENUM('MALE','FEMALE','OTHER')
+        NOT NULL,
+
+    date_of_birth DATE NOT NULL,
+
+    email VARCHAR(100)
+        UNIQUE,
+
+    phone VARCHAR(15)
+        NOT NULL UNIQUE,
+
+    address_line1 VARCHAR(150)
+        NOT NULL,
+
+    address_line2 VARCHAR(150),
+
+    city VARCHAR(50)
+        NOT NULL,
+
+    state VARCHAR(50)
+        NOT NULL,
+
+    pincode CHAR(6)
+        NOT NULL,
+
+    customer_status
+        ENUM('ACTIVE','INACTIVE','BLOCKED')
+        DEFAULT 'ACTIVE',
+
+    created_at TIMESTAMP
+        DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP
+        DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP
+);
+/*=========================================================
+ TABLE: KYC
+ Description:
+ Stores customer KYC information.
+=========================================================*/
+
+CREATE TABLE KYC
+(
+    kyc_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    customer_id INT NOT NULL UNIQUE,
+
+    aadhaar_number CHAR(12)
+        NOT NULL UNIQUE,
+
+    pan_number CHAR(10)
+        NOT NULL UNIQUE,
+
+    passport_number VARCHAR(20),
+
+    voter_id VARCHAR(20),
+
+    driving_license VARCHAR(25),
+
+    kyc_status
+        ENUM('PENDING','VERIFIED','REJECTED')
+        DEFAULT 'PENDING',
+
+    verification_date DATE,
+
+    verified_by INT,
+
+    CONSTRAINT fk_kyc_customer
+        FOREIGN KEY(customer_id)
+        REFERENCES Customers(customer_id),
+
+    CONSTRAINT fk_kyc_employee
+        FOREIGN KEY(verified_by)
+        REFERENCES Employees(employee_id)
+);
+/*=========================================================
+ TABLE: Nominees
+ Description:
+ Stores customer nominee information.
+=========================================================*/
+
+CREATE TABLE Nominees
+(
+    nominee_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    customer_id INT NOT NULL,
+
+    nominee_name VARCHAR(100)
+        NOT NULL,
+
+    relationship VARCHAR(50)
+        NOT NULL,
+
+    date_of_birth DATE,
+
+    phone VARCHAR(15),
+
+    share_percentage DECIMAL(5,2)
+        DEFAULT 100.00,
+
+    CONSTRAINT fk_nominee_customer
+        FOREIGN KEY(customer_id)
+        REFERENCES Customers(customer_id)
+);
