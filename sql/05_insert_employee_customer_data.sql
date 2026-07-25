@@ -66,8 +66,6 @@ gender,
 date_of_birth,
 email,
 phone,
-aadhaar_number,
-pan_number,
 address_line1,
 city,
 state,
@@ -75,36 +73,50 @@ pincode
 )
 VALUES
 
-('CUS001','Aarav','Sharma','MALE','1998-01-12','aarav@gmail.com','9876600001','123456789012','ABCDE1234F','MG Road','Bengaluru','Karnataka','560001'),
+VALUES
 
-('CUS002','Ananya','Patel','FEMALE','1997-03-20','ananya@gmail.com','9876600002','123456789013','ABCDE1234G','Whitefield','Bengaluru','Karnataka','560066'),
+('CUS001','Aarav','Sharma','MALE','1998-01-12',
+'aarav@gmail.com','9876600001',
+'MG Road','Bengaluru','Karnataka','560001'),
 
-('CUS003','Vihaan','Gupta','MALE','1994-05-18','vihaan@gmail.com','9876600003','123456789014','ABCDE1234H','Electronic City','Bengaluru','Karnataka','560100'),
+('CUS002','Ananya','Patel','FEMALE','1997-03-20',
+'ananya@gmail.com','9876600002',
+'Whitefield','Bengaluru','Karnataka','560066'),
 
-('CUS004','Diya','Verma','FEMALE','1996-09-08','diya@gmail.com','9876600004','123456789015','ABCDE1234J','Koramangala','Bengaluru','Karnataka','560034'),
+('CUS003','Vihaan','Gupta','MALE','1994-05-18',
+'vihaan@gmail.com','9876600003',
+'Electronic City','Bengaluru','Karnataka','560100'),
 
-('CUS005','Arjun','Mehta','MALE','1995-07-22','arjun@gmail.com','9876600005','123456789016','ABCDE1234K','Indiranagar','Bengaluru','Karnataka','560038');
+('CUS004','Diya','Verma','FEMALE','1996-09-08',
+'diya@gmail.com','9876600004',
+'Koramangala','Bengaluru','Karnataka','560034'),
 
+('CUS005','Arjun','Mehta','MALE','1995-07-22',
+'arjun@gmail.com','9876600005',
+'Indiranagar','Bengaluru','Karnataka','560038');
 INSERT INTO KYC
 (
 customer_id,
-aadhaar_verified,
-pan_verified,
+aadhaar_number,
+pan_number,
+passport_number,
+voter_id,
+driving_license,
 kyc_status,
 verification_date,
 verified_by
 )
 VALUES
 
-(1,TRUE,TRUE,'VERIFIED','2024-01-10',1),
+(1,'123456789012','ABCDE1234F',NULL,NULL,NULL,'VERIFIED','2024-01-10',1),
 
-(2,TRUE,TRUE,'VERIFIED','2024-01-12',1),
+(2,'123456789013','ABCDE1234G',NULL,NULL,NULL,'VERIFIED','2024-01-12',1),
 
-(3,TRUE,TRUE,'VERIFIED','2024-02-01',3),
+(3,'123456789014','ABCDE1234H',NULL,NULL,NULL,'VERIFIED','2024-02-01',3),
 
-(4,TRUE,FALSE,'PENDING',NULL,NULL),
+(4,'123456789015','ABCDE1234J',NULL,NULL,NULL,'PENDING',NULL,NULL),
 
-(5,TRUE,TRUE,'VERIFIED','2024-02-15',6);
+(5,'123456789016','ABCDE1234K',NULL,NULL,NULL,'VERIFIED','2024-02-15',6);
 
 INSERT INTO Nominees
 (
@@ -113,16 +125,17 @@ nominee_name,
 relationship,
 date_of_birth,
 phone,
-address
+share_percentage
 )
 VALUES
 
-(1,'Sunita Sharma','Mother','1975-06-15','9876700001','Bengaluru'),
 
-(2,'Raj Patel','Father','1970-09-12','9876700002','Ahmedabad'),
+(1,'Sunita Sharma','Mother','1975-06-15','9876700001',100),
 
-(3,'Riya Gupta','Sister','2000-05-18','9876700003','Delhi'),
+(2,'Raj Patel','Father','1970-09-12','9876700002',100),
 
-(4,'Amit Verma','Brother','1993-03-21','9876700004','Pune'),
+(3,'Riya Gupta','Sister','2000-05-18','9876700003',100),
 
-(5,'Anjali Mehta','Spouse','1996-10-11','9876700005','Mumbai');
+(4,'Amit Verma','Brother','1993-03-21','9876700004',100),
+
+(5,'Anjali Mehta','Spouse','1996-10-11','9876700005',100);
