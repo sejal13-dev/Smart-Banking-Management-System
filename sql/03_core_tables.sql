@@ -298,3 +298,71 @@ CREATE TABLE EMI_Payments
         FOREIGN KEY(emi_schedule_id)
         REFERENCES EMI_Schedule(emi_schedule_id)
 );
+/*=========================================================
+ TABLE: Fraud_Alerts
+ Description:
+ Stores suspicious transaction alerts.
+=========================================================*/
+
+CREATE TABLE Fraud_Alerts
+(
+    fraud_alert_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    transaction_id BIGINT NOT NULL,
+
+    alert_type VARCHAR(100) NOT NULL,
+
+    risk_score DECIMAL(5,2) NOT NULL,
+
+    alert_status
+        ENUM('OPEN','UNDER_REVIEW','RESOLVED')
+        DEFAULT 'OPEN',
+
+    detected_at TIMESTAMP
+        DEFAULT CURRENT_TIMESTAMP,
+
+    reviewed_by INT NULL,
+
+    remarks VARCHAR(255),
+
+    CONSTRAINT fk_fraud_transaction
+        FOREIGN KEY(transaction_id)
+        REFERENCES Transactions(transaction_id),
+
+    CONSTRAINT fk_fraud_employee
+        FOREIGN KEY(reviewed_by)
+        REFERENCES Employees(employee_id)
+);
+/*=========================================================
+ TABLE: Audit_Logs
+ Description:
+ Stores audit history for important operations.
+=========================================================*/
+
+CREATE TABLE Audit_Logs
+(
+    audit_log_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+    employee_id INT,
+
+    table_name VARCHAR(100) NOT NULL,
+
+    record_id BIGINT NOT NULL,
+
+    operation_type
+        ENUM('INSERT','UPDATE','DELETE')
+        NOT NULL,
+
+    old_value JSON,
+
+    new_value JSON,
+
+    action_timestamp TIMESTAMP
+        DEFAULT CURRENT_TIMESTAMP,
+
+    ip_address VARCHAR(45),
+
+    CONSTRAINT fk_audit_employee
+        FOREIGN KEY(employee_id)
+        REFERENCES Employees(employee_id)
+);
