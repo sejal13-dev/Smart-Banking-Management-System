@@ -273,3 +273,95 @@ CREATE TABLE Nominees
         FOREIGN KEY(customer_id)
         REFERENCES Customers(customer_id)
 );
+/*=========================================================
+ TABLE: Account_Types
+ Description:
+ Stores different types of bank accounts.
+=========================================================*/
+
+CREATE TABLE Account_Types
+(
+    account_type_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    account_type_name VARCHAR(50) NOT NULL UNIQUE,
+
+    minimum_balance DECIMAL(12,2) NOT NULL,
+
+    interest_rate DECIMAL(5,2) DEFAULT 0.00,
+
+    description VARCHAR(255),
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP
+);
+/*=========================================================
+ TABLE: Card_Types
+ Description:
+ Stores different bank card types.
+=========================================================*/
+
+CREATE TABLE Card_Types
+(
+    card_type_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    card_type_name VARCHAR(50) NOT NULL UNIQUE,
+
+    annual_fee DECIMAL(10,2) DEFAULT 0.00,
+
+    daily_withdrawal_limit DECIMAL(12,2),
+
+    description VARCHAR(255),
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP
+);
+/*=========================================================
+ TABLE: Loan_Types
+ Description:
+ Stores loan categories offered by the bank.
+=========================================================*/
+
+CREATE TABLE Loan_Types
+(
+    loan_type_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    loan_type_name VARCHAR(50) NOT NULL UNIQUE,
+
+    minimum_amount DECIMAL(15,2),
+
+    maximum_amount DECIMAL(15,2),
+
+    interest_rate DECIMAL(5,2) NOT NULL,
+
+    maximum_tenure_months INT,
+
+    description VARCHAR(255),
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP
+);
+/*=========================================================
+ TABLE: Transaction_Types
+ Description:
+ Stores all supported banking transaction types.
+=========================================================*/
+
+CREATE TABLE Transaction_Types
+(
+    transaction_type_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    transaction_type_name VARCHAR(50) NOT NULL UNIQUE,
+
+    description VARCHAR(255),
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP
+);
