@@ -3,18 +3,18 @@
 Project : Smart Banking Management System
 File    : 03_core_tables.sql
 Author  : Sejal Priya
-Version : 1.0
+Version : 2.0
 
 Description:
-Creates all core banking tables.
-
+Creates all transactional/core tables.
 =========================================================
 */
 
 USE smart_banking_system;
-/*=========================================================
- TABLE: Accounts
-=========================================================*/
+
+-- =====================================================
+-- ACCOUNTS
+-- =====================================================
 
 CREATE TABLE Accounts
 (
@@ -37,13 +37,11 @@ CREATE TABLE Accounts
 
     opened_on DATE NOT NULL,
 
-    closed_on DATE NULL,
+    closed_on DATE,
 
-    created_at TIMESTAMP
-        DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    updated_at TIMESTAMP
-        DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_account_type
@@ -54,12 +52,10 @@ CREATE TABLE Accounts
         FOREIGN KEY(branch_id)
         REFERENCES Branches(branch_id)
 );
-/*=========================================================
- TABLE: Account_Holders
- Description:
- Maps customers to bank accounts.
- Supports both single and joint account holders.
-=========================================================*/
+
+-- =====================================================
+-- ACCOUNT HOLDERS
+-- =====================================================
 
 CREATE TABLE Account_Holders
 (
@@ -72,8 +68,7 @@ CREATE TABLE Account_Holders
     holder_type ENUM('PRIMARY','JOINT')
         DEFAULT 'PRIMARY',
 
-    added_on DATE
-        DEFAULT (CURRENT_DATE),
+    added_on DATE DEFAULT (CURRENT_DATE),
 
     CONSTRAINT fk_accountholder_account
         FOREIGN KEY(account_id)
@@ -86,9 +81,10 @@ CREATE TABLE Account_Holders
     CONSTRAINT uq_account_customer
         UNIQUE(account_id, customer_id)
 );
-/*=========================================================
- TABLE: Beneficiaries
-=========================================================*/
+
+-- =====================================================
+-- BENEFICIARIES
+-- =====================================================
 
 CREATE TABLE Beneficiaries
 (
@@ -109,18 +105,52 @@ CREATE TABLE Beneficiaries
     status ENUM('ACTIVE','INACTIVE')
         DEFAULT 'ACTIVE',
 
-    added_on DATE
-        DEFAULT (CURRENT_DATE),
+    added_on DATE DEFAULT (CURRENT_DATE),
 
     CONSTRAINT fk_beneficiary_customer
         FOREIGN KEY(customer_id)
         REFERENCES Customers(customer_id)
 );
-/*=========================================================
- TABLE: Transactions
- Description:
- Stores all financial transactions.
-=========================================================*/
+
+-- =====================================================
+-- CARDS
+-- =====================================================
+
+CREATE TABLE Cards
+(
+    card_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    account_id INT NOT NULL,
+
+    card_type_id INT NOT NULL,
+
+    card_number VARCHAR(20) NOT NULL UNIQUE,
+
+    expiry_date DATE NOT NULL,
+
+    cvv CHAR(3) NOT NULL,
+
+    issue_date DATE NOT NULL,
+
+    card_status
+        ENUM('ACTIVE','BLOCKED','EXPIRED')
+        DEFAULT 'ACTIVE',
+
+    daily_limit DECIMAL(12,2)
+        DEFAULT 50000.00,
+
+    CONSTRAINT fk_card_account
+        FOREIGN KEY(account_id)
+        REFERENCES Accounts(account_id),
+
+    CONSTRAINT fk_card_type
+        FOREIGN KEY(card_type_id)
+        REFERENCES Card_Types(card_type_id)
+);
+
+-- =====================================================
+-- TRANSACTIONS
+-- =====================================================
 
 CREATE TABLE Transactions
 (
@@ -157,45 +187,10 @@ CREATE TABLE Transactions
         FOREIGN KEY(transaction_type_id)
         REFERENCES Transaction_Types(transaction_type_id)
 );
-/*=========================================================
- TABLE: Cards
-=========================================================*/
 
-CREATE TABLE Cards
-(
-    card_id INT AUTO_INCREMENT PRIMARY KEY,
-
-    account_id INT NOT NULL,
-
-    card_type_id INT NOT NULL,
-
-    card_number VARCHAR(20) NOT NULL UNIQUE,
-
-    expiry_date DATE NOT NULL,
-
-    cvv CHAR(3) NOT NULL,
-
-    issue_date DATE NOT NULL,
-
-    card_status
-        ENUM('ACTIVE','BLOCKED','EXPIRED')
-        DEFAULT 'ACTIVE',
-
-    daily_limit DECIMAL(12,2) DEFAULT 50000.00,
-
-    CONSTRAINT fk_card_account
-        FOREIGN KEY(account_id)
-        REFERENCES Accounts(account_id),
-
-    CONSTRAINT fk_card_type
-        FOREIGN KEY(card_type_id)
-        REFERENCES Card_Types(card_type_id)
-);
-/*=========================================================
- TABLE: Loans
- Description:
- Stores all customer loan information.
-=========================================================*/
+-- =====================================================
+-- LOANS
+-- =====================================================
 
 CREATE TABLE Loans
 (
@@ -242,9 +237,10 @@ CREATE TABLE Loans
         FOREIGN KEY(account_id)
         REFERENCES Accounts(account_id)
 );
-/*=========================================================
- TABLE: EMI_Schedule
-=========================================================*/
+
+-- =====================================================
+-- EMI SCHEDULE
+-- =====================================================
 
 CREATE TABLE EMI_Schedule
 (
@@ -270,9 +266,10 @@ CREATE TABLE EMI_Schedule
         FOREIGN KEY(loan_id)
         REFERENCES Loans(loan_id)
 );
-/*=========================================================
- TABLE: EMI_Payments
-=========================================================*/
+
+-- =====================================================
+-- EMI PAYMENTS
+-- =====================================================
 
 CREATE TABLE EMI_Payments
 (
@@ -298,11 +295,10 @@ CREATE TABLE EMI_Payments
         FOREIGN KEY(emi_schedule_id)
         REFERENCES EMI_Schedule(emi_schedule_id)
 );
-/*=========================================================
- TABLE: Fraud_Alerts
- Description:
- Stores suspicious transaction alerts.
-=========================================================*/
+
+-- =====================================================
+-- FRAUD ALERTS
+-- =====================================================
 
 CREATE TABLE Fraud_Alerts
 (
@@ -321,7 +317,7 @@ CREATE TABLE Fraud_Alerts
     detected_at TIMESTAMP
         DEFAULT CURRENT_TIMESTAMP,
 
-    reviewed_by INT NULL,
+    reviewed_by INT,
 
     remarks VARCHAR(255),
 
@@ -333,11 +329,10 @@ CREATE TABLE Fraud_Alerts
         FOREIGN KEY(reviewed_by)
         REFERENCES Employees(employee_id)
 );
-/*=========================================================
- TABLE: Audit_Logs
- Description:
- Stores audit history for important operations.
-=========================================================*/
+
+-- =====================================================
+-- AUDIT LOGS
+-- =====================================================
 
 CREATE TABLE Audit_Logs
 (
