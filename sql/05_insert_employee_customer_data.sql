@@ -1,122 +1,177 @@
-/*
-=========================================================
-Project : Smart Banking Management System
-File    : 05_insert_employee_customer_data.sql
-=========================================================
-*/
+/*=========================================================
+                EMPLOYEE DATA
+=========================================================*/
 
-USE smart_banking_system;
 INSERT INTO Employees
 (
-employee_code,
 branch_id,
 first_name,
 last_name,
 gender,
 date_of_birth,
-email,
 phone,
-designation,
+email,
 hire_date,
-salary
+salary,
+employee_status
 )
 VALUES
 
-('EMP001',1,'Rahul','Sharma','MALE','1990-05-12','rahul.sharma@smartbank.com','9876500001','Branch Manager','2018-01-15',85000),
+(1,'Rahul','Sharma','MALE','1985-06-15',
+'9876500001',
+'rahul.sharma@smartbank.com',
+'2015-04-01',
+85000,
+'ACTIVE'),
 
-('EMP002',1,'Priya','Singh','FEMALE','1994-07-20','priya.singh@smartbank.com','9876500002','Cashier','2020-06-10',42000),
+(2,'Priya','Verma','FEMALE','1990-02-20',
+'9876500002',
+'priya.verma@smartbank.com',
+'2018-01-15',
+55000,
+'ACTIVE'),
 
-('EMP003',2,'Amit','Verma','MALE','1991-11-11','amit.verma@smartbank.com','9876500003','Loan Officer','2019-09-18',60000),
+(3,'Amit','Patel','MALE','1988-09-10',
+'9876500003',
+'amit.patel@smartbank.com',
+'2017-07-11',
+60000,
+'ACTIVE'),
 
-('EMP004',2,'Sneha','Patel','FEMALE','1995-02-05','sneha.patel@smartbank.com','9876500004','Customer Support','2021-03-01',38000),
+(4,'Sneha','Rao','FEMALE','1992-12-05',
+'9876500004',
+'sneha.rao@smartbank.com',
+'2019-09-01',
+52000,
+'ACTIVE'),
 
-('EMP005',3,'Karan','Mehta','MALE','1988-12-18','karan.mehta@smartbank.com','9876500005','Relationship Manager','2017-08-25',72000),
+(5,'Karan','Singh','MALE','1987-03-11',
+'9876500005',
+'karan.singh@smartbank.com',
+'2016-06-21',
+65000,
+'ACTIVE');
 
-('EMP006',4,'Neha','Gupta','FEMALE','1993-09-09','neha.gupta@smartbank.com','9876500006','Assistant Manager','2019-05-30',65000),
-
-('EMP007',5,'Rohit','Joshi','MALE','1992-01-14','rohit.joshi@smartbank.com','9876500007','Auditor','2018-04-20',70000);
+/*=========================================================
+                EMPLOYEE ROLES
+=========================================================*/
 
 INSERT INTO Employee_Roles
 (
 employee_id,
-role_id
+role_id,
+assigned_date
 )
 VALUES
 
-(1,1),
+(1,1,'2015-04-01'),
 
-(2,3),
+(2,2,'2018-01-15'),
 
-(3,4),
+(3,4,'2017-07-11'),
 
-(4,6),
+(4,3,'2019-09-01'),
 
-(5,5),
+(5,5,'2016-06-21');
 
-(6,2),
-
-(7,7);
+/*=========================================================
+                CUSTOMER DATA
+=========================================================*/
 
 INSERT INTO Customers
 (
-customer_code,
 first_name,
 last_name,
 gender,
 date_of_birth,
-email,
 phone,
-address_line1,
+email,
+address,
 city,
 state,
-pincode
+pincode,
+customer_status
 )
 VALUES
 
-VALUES
+('Arjun','Mehta','MALE',
+'1995-05-20',
+'9876600001',
+'arjun@gmail.com',
+'12 MG Road',
+'Bangalore',
+'Karnataka',
+'560001',
+'ACTIVE'),
 
-('CUS001','Aarav','Sharma','MALE','1998-01-12',
-'aarav@gmail.com','9876600001',
-'MG Road','Bengaluru','Karnataka','560001'),
+('Neha','Sharma','FEMALE',
+'1996-08-15',
+'9876600002',
+'neha@gmail.com',
+'45 Indiranagar',
+'Bangalore',
+'Karnataka',
+'560038',
+'ACTIVE'),
 
-('CUS002','Ananya','Patel','FEMALE','1997-03-20',
-'ananya@gmail.com','9876600002',
-'Whitefield','Bengaluru','Karnataka','560066'),
+('Rohan','Patil','MALE',
+'1992-04-11',
+'9876600003',
+'rohan@gmail.com',
+'Whitefield',
+'Bangalore',
+'Karnataka',
+'560066',
+'ACTIVE'),
 
-('CUS003','Vihaan','Gupta','MALE','1994-05-18',
-'vihaan@gmail.com','9876600003',
-'Electronic City','Bengaluru','Karnataka','560100'),
+('Anjali','Reddy','FEMALE',
+'1997-12-08',
+'9876600004',
+'anjali@gmail.com',
+'Electronic City',
+'Bangalore',
+'Karnataka',
+'560100',
+'ACTIVE'),
 
-('CUS004','Diya','Verma','FEMALE','1996-09-08',
-'diya@gmail.com','9876600004',
-'Koramangala','Bengaluru','Karnataka','560034'),
+('Vikram','Joshi','MALE',
+'1994-01-25',
+'9876600005',
+'vikram@gmail.com',
+'Mysore',
+'Mysore',
+'Karnataka',
+'570001',
+'ACTIVE');
 
-('CUS005','Arjun','Mehta','MALE','1995-07-22',
-'arjun@gmail.com','9876600005',
-'Indiranagar','Bengaluru','Karnataka','560038');
+/*=========================================================
+                    KYC DATA
+=========================================================*/
+
 INSERT INTO KYC
 (
 customer_id,
 aadhaar_number,
 pan_number,
-passport_number,
-voter_id,
-driving_license,
-kyc_status,
+document_verified,
 verification_date,
 verified_by
 )
 VALUES
 
-(1,'123456789012','ABCDE1234F',NULL,NULL,NULL,'VERIFIED','2024-01-10',1),
+(1,'123456789001','ABCDE1234F',TRUE,'2024-01-10',1),
 
-(2,'123456789013','ABCDE1234G',NULL,NULL,NULL,'VERIFIED','2024-01-12',1),
+(2,'123456789002','ABCDE1235G',TRUE,'2024-01-12',1),
 
-(3,'123456789014','ABCDE1234H',NULL,NULL,NULL,'VERIFIED','2024-02-01',3),
+(3,'123456789003','ABCDE1236H',TRUE,'2024-01-15',1),
 
-(4,'123456789015','ABCDE1234J',NULL,NULL,NULL,'PENDING',NULL,NULL),
+(4,'123456789004','ABCDE1237J',TRUE,'2024-01-17',1),
 
-(5,'123456789016','ABCDE1234K',NULL,NULL,NULL,'VERIFIED','2024-02-15',6);
+(5,'123456789005','ABCDE1238K',TRUE,'2024-01-18',1);
+
+/*=========================================================
+                NOMINEE DATA
+=========================================================*/
 
 INSERT INTO Nominees
 (
@@ -124,18 +179,16 @@ customer_id,
 nominee_name,
 relationship,
 date_of_birth,
-phone,
-share_percentage
+phone
 )
 VALUES
 
+(1,'Sunita Mehta','Mother','1970-05-11','9877700001'),
 
-(1,'Sunita Sharma','Mother','1975-06-15','9876700001',100),
+(2,'Raj Sharma','Father','1968-11-02','9877700002'),
 
-(2,'Raj Patel','Father','1970-09-12','9876700002',100),
+(3,'Pooja Patil','Wife','1993-04-17','9877700003'),
 
-(3,'Riya Gupta','Sister','2000-05-18','9876700003',100),
+(4,'Ramesh Reddy','Father','1965-09-20','9877700004'),
 
-(4,'Amit Verma','Brother','1993-03-21','9876700004',100),
-
-(5,'Anjali Mehta','Spouse','1996-10-11','9876700005',100);
+(5,'Suman Joshi','Mother','1971-07-10','9877700005');

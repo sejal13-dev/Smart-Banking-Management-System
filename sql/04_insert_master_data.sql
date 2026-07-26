@@ -6,149 +6,202 @@ Author  : Sejal Priya
 Version : 1.0
 
 Description:
-Insert master data into reference tables.
+Insert all master/reference data.
+
 =========================================================
 */
 
 USE smart_banking_system;
-/*=========================================================
-INSERT INTO Branches
-=========================================================*/
 
-INSERT INTO Branches
-(
-    branch_code,
-    branch_name,
-    ifsc_code,
-    address_line1,
-    address_line2,
-    city,
-    state,
-    pincode,
-    phone,
-    email
-)
-VALUES
-('BR001','MG Road Branch','SBIN0001001','MG Road','Near Metro Station','Bengaluru','Karnataka','560001','08022221111','mgroad@smartbank.com'),
 
-('BR002','Whitefield Branch','SBIN0001002','ITPL Main Road','Whitefield','Bengaluru','Karnataka','560066','08022222222','whitefield@smartbank.com'),
 
-('BR003','Electronic City Branch','SBIN0001003','Phase 1','Electronic City','Bengaluru','Karnataka','560100','08022223333','ecity@smartbank.com'),
 
-('BR004','Koramangala Branch','SBIN0001004','80 Feet Road','Koramangala','Bengaluru','Karnataka','560034','08022224444','koramangala@smartbank.com'),
-
-('BR005','Indiranagar Branch','SBIN0001005','100 Feet Road','Indiranagar','Bengaluru','Karnataka','560038','08022225555','indiranagar@smartbank.com');
 
 /*=========================================================
-INSERT INTO Roles
+                ROLES MASTER DATA
 =========================================================*/
 
 INSERT INTO Roles
-(
-    role_name,
-    role_description
-)
+(role_name, description)
 VALUES
 ('Branch Manager','Manages complete branch operations'),
+('Cashier','Handles deposits and withdrawals'),
+('Customer Service Executive','Customer account services'),
+('Loan Officer','Processes customer loans'),
+('Accountant','Maintains bank accounts'),
+('Auditor','Audits banking transactions'),
+('Relationship Manager','Handles premium customers'),
+('System Administrator','Manages banking software');
 
-('Assistant Manager','Assists branch manager'),
 
-('Cashier','Handles cash transactions'),
 
-('Loan Officer','Processes loan applications'),
 
-('Relationship Manager','Manages premium customers'),
-
-('Customer Support','Handles customer queries'),
-
-('Auditor','Performs internal audits');
 
 /*=========================================================
+                BRANCH MASTER DATA
+=========================================================*/
+
+INSERT INTO Branches
+(
+branch_code,
+branch_name,
+ifsc_code,
+address_line1,
+address_line2,
+city,
+state,
+pincode,
+phone,
+email
+)
+VALUES
+(
+'BR001',
+'Head Office',
+'SBIN0001001',
+'MG Road',
+'Near City Mall',
+'Bangalore',
+'Karnataka',
+'560001',
+'9876543210',
+'headoffice@smartbank.com'
+),
+
+(
+'BR002',
+'Indiranagar Branch',
+'SBIN0001002',
+'100 Feet Road',
+'Indiranagar',
+'Bangalore',
+'Karnataka',
+'560038',
+'9876543211',
+'indiranagar@smartbank.com'
+),
+
+(
+'BR003',
+'Whitefield Branch',
+'SBIN0001003',
+'ITPL Main Road',
+'Whitefield',
+'Bangalore',
+'Karnataka',
+'560066',
+'9876543212',
+'whitefield@smartbank.com'
+),
+
+(
+'BR004',
+'Electronic City Branch',
+'SBIN0001004',
+'Phase 1',
+'Electronic City',
+'Bangalore',
+'Karnataka',
+'560100',
+'9876543213',
+'ecity@smartbank.com'
+),
+
+(
+'BR005',
+'Mysore Branch',
+'SBIN0001005',
+'Sayyaji Rao Road',
+'Central Mysore',
+'Mysore',
+'Karnataka',
+'570001',
+'9876543214',
+'mysore@smartbank.com'
+);
+
+
+
+
+
+/*=========================================================
+            ACCOUNT TYPES MASTER DATA
+=========================================================*/
+
 INSERT INTO Account_Types
-=========================================================*/
-
-INSERT INTO Account_Types
 (
-    account_type_name,
-    minimum_balance,
-    interest_rate,
-    description
+account_type_name,
+minimum_balance,
+interest_rate
 )
 VALUES
-('Savings',1000,3.50,'Regular savings account'),
+('Savings',1000,3.50),
+('Current',5000,0.00),
+('Salary',0,3.00),
+('Fixed Deposit',10000,6.80);
 
-('Current',10000,0.00,'Business current account'),
 
-('Salary',0,3.00,'Salary account'),
 
-('Fixed Deposit',5000,6.80,'Fixed deposit account'),
 
-('Recurring Deposit',1000,6.20,'Recurring deposit account');
 
 /*=========================================================
-INSERT INTO Card_Types
+                CARD TYPES MASTER DATA
 =========================================================*/
 
 INSERT INTO Card_Types
 (
-    card_type_name,
-    annual_fee,
-    daily_withdrawal_limit,
-    description
+card_name,
+annual_fee,
+daily_limit
 )
 VALUES
-('Debit Card',250,50000,'Standard debit card'),
+('Debit Card',250,50000),
+('Credit Card',1000,200000),
+('Platinum Credit Card',2500,500000);
 
-('Credit Card',1000,100000,'Credit card'),
 
-('RuPay Platinum',500,75000,'RuPay premium card'),
 
-('Visa Platinum',750,100000,'Visa premium card');
+
 
 /*=========================================================
-INSERT INTO Loan_Types
+                LOAN TYPES MASTER DATA
 =========================================================*/
 
 INSERT INTO Loan_Types
 (
-    loan_type_name,
-    minimum_amount,
-    maximum_amount,
-    interest_rate,
-    maximum_tenure_months,
-    description
+loan_name,
+interest_rate,
+max_tenure_months
 )
 VALUES
-('Home Loan',500000,10000000,8.50,360,'Housing loan'),
+('Home Loan',8.50,360),
+('Car Loan',9.25,84),
+('Education Loan',8.10,180),
+('Personal Loan',11.50,60),
+('Gold Loan',7.75,36);
 
-('Car Loan',100000,3000000,9.25,84,'Vehicle loan'),
 
-('Education Loan',50000,5000000,8.00,180,'Education loan'),
 
-('Personal Loan',50000,2000000,11.50,60,'Personal finance'),
 
-('Gold Loan',10000,5000000,7.75,36,'Loan against gold');
 
 /*=========================================================
-INSERT INTO Transaction_Types
+            TRANSACTION TYPES MASTER DATA
 =========================================================*/
 
 INSERT INTO Transaction_Types
 (
-    transaction_type_name,
-    description
+transaction_name,
+description
 )
 VALUES
 ('Deposit','Cash or cheque deposit'),
-
 ('Withdrawal','Cash withdrawal'),
-
-('Transfer','Account to account transfer'),
-
-('UPI','Unified Payments Interface'),
-
-('NEFT','National Electronic Funds Transfer'),
-
+('Fund Transfer','Account to account transfer'),
+('UPI','UPI Payment'),
+('NEFT','National Electronic Fund Transfer'),
 ('RTGS','Real Time Gross Settlement'),
+('IMPS','Immediate Payment Service'),
+('ATM Withdrawal','ATM Cash Withdrawal');
 
-('IMPS','Immediate Payment Service');
+
+
