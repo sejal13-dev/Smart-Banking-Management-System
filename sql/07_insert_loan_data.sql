@@ -82,3 +82,24 @@ VALUES
 (7,'2024-04-01',10138.20,'UPI','EMI100004'),
 
 (10,'2024-05-01',9895.17,'RTGS','EMI100005');
+
+SELECT *
+FROM EMI_Payments;
+
+SELECT customer_id, customer_code
+FROM Customers;
+
+SELECT *
+FROM Account_Holders;
+
+SELECT COUNT(*) AS branches FROM Branches;
+
+SELECT COUNT(*) AS employees FROM Employees;
+
+SELECT COUNT(*) AS customers FROM Customers;
+
+SELECT COUNT(*) AS accounts FROM Accounts;
+
+SELECT customer_id, customer_code
+FROM Customers;
+INSERT INTO Account_Holders;

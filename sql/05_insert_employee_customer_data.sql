@@ -192,3 +192,14 @@ VALUES
 (4,'Ramesh Reddy','Father','1965-09-20','9877700004'),
 
 (5,'Suman Joshi','Mother','1971-07-10','9877700005');
+
+
+SELECT COUNT(*) FROM Employees;
+
+SELECT COUNT(*) FROM Employee_Roles;
+
+SELECT COUNT(*) FROM Customers;
+
+SELECT COUNT(*) FROM KYC;
+
+SELECT COUNT(*) FROM Nominees;

@@ -204,4 +204,9 @@ VALUES
 ('ATM Withdrawal','ATM Cash Withdrawal');
 
 
-
+SELECT COUNT(*) FROM Roles;
+SELECT COUNT(*) FROM Branches;
+SELECT COUNT(*) FROM Account_Types;
+SELECT COUNT(*) FROM Card_Types;
+SELECT COUNT(*) FROM Loan_Types;
+SELECT COUNT(*) FROM Transaction_Types;
